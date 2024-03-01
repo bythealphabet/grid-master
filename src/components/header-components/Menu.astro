@@ -1,0 +1,156 @@
+---
+export interface ILink {
+  name: string;
+  path: string;
+  btn: boolean;
+}
+
+interface Props {
+  links: ILink[];
+}
+
+const { links }: { links: ILink[] } = Astro.props;
+---
+
+<div class:list={["menu sub-grid", { open: true, close: false }]}>
+  <nav class="nav">
+    <ul>
+      {
+        links.map(({ name, path, btn }, index) => {
+          return (
+            <li>
+              <a href={path} class={btn ? "nav-btn" : ""}>
+                {name}
+              </a>
+            </li>
+          );
+        })
+      }
+    </ul>
+  </nav>
+</div>
+
+<style>
+  .menu {
+    /********* Mobile styles **********/
+    z-index: 10;
+    position: fixed;
+    overflow-y: scroll;
+
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    background-image: linear-gradient(
+      to right,
+      rgba(36, 57, 73, 0.99) 0%,
+      rgba(81, 127, 164, 0.99) 100%
+    );
+    transform: translateX(-100%);
+    transition: transform 0.25s ease;
+
+    display: grid;
+    grid-template-rows: var(--headerHeight) repeat(3, 1fr);
+
+    @media (min-width: 900px) {
+      z-index: 10;
+      grid-template-rows: var(--headerHeight);
+      position: initial;
+      background: transparent;
+      overflow-y: hidden;
+      transform: translateX(0);
+      border: none;
+      opacity: 1;
+      grid-column: 1 / -1;
+      grid-row: 1 / -1;
+    }
+
+    .nav {
+      z-index: 11;
+      display: flex;
+
+      @media (min-width: 900px) {
+        background: transparent;
+      }
+
+      ul {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+
+        @media (min-width: 900px) {
+          width: 100%;
+          flex-direction: row;
+          align-items: center;
+        }
+
+        li {
+          @media (min-width: 900px) {
+            margin: 0 0.7em;
+            padding: 0 0.7em;
+            border: none;
+
+            :hover {
+              background: transparent;
+            }
+
+            :last-of-type {
+              padding-right: 0;
+              margin-right: 0;
+            }
+          }
+
+          a {
+            text-decoration: none;
+            display: flex;
+            justify-content: space-between;
+            font-size: 2rem;
+            text-transform: capitalize;
+            color: white;
+            transition: color 0.2s ease-in-out;
+
+            :hover {
+              color: var(--pink);
+            }
+
+            @media (min-width: 900px) {
+              font-size: 1.2rem;
+              color: var(--white);
+              text-align: center;
+              font-weight: bold;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  @media (max-width: 768px) {
+    & .close {
+      animation: slideOut 0.3s ease-in-out forwards;
+    }
+
+    & .open {
+      animation: slideIn 0.3s ease-in-out forwards;
+    }
+
+    @keyframes slideOut {
+      0% {
+        transform: translateX(0);
+      }
+      100% {
+        transform: translateX(100%);
+      }
+    }
+
+    @keyframes slideIn {
+      0% {
+        transform: translateX(-100%);
+      }
+      100% {
+        transform: translateX(0);
+      }
+    }
+  }
+</style>

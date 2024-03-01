@@ -1,0 +1,31 @@
+---
+import Logo from "../logo/Logo.astro";
+import Hamburger from "./Hamburger.astro";
+import Menu from "./Menu.astro";
+import type { ILink } from "./Menu.astro";
+
+const links: ILink[] = [
+  { name: "Projects", path: "/projects", btn: false },
+  { name: "About", path: "/about", btn: false },
+  { name: "Contact", path: "/contact", btn: true },
+];
+---
+
+<!-- css={[navStyle, position]} -->
+<header class="base-grid header">
+  <Logo />
+  <Hamburger />
+  <Menu links={links} />
+</header>
+
+<style style="scss">
+  .header {
+    height: var(--headerHeight);
+    display: grid;
+    grid-template-rows: repeat(2, calc(var(--headerHeight) / 2));
+
+    /*******   Header Position */
+    grid-column: 1 / -1;
+    grid-row: 1;
+  }
+</style>
