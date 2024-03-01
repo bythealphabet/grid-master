@@ -1,0 +1,271 @@
+---
+import Header from "../components/Header.astro";
+interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content="Astro description" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+
+    <title>{title}</title>
+  </head>
+
+  <body class="dark-mode base-grid">
+    <Header />
+
+    <slot />
+  </body>
+</html>
+<style is:global style="scss">
+  /* Box sizing rules */
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  :root {
+    --headerHeight: 100px;
+    --footerHeight: 100px;
+    --innerRadius: 2em;
+
+    /* // Colors */
+    --primary-light: #e6e6e6;
+    --primary-dark: #1c2c35;
+    --secondary-light: #515151;
+    --secondary-dark: #ecf8ff;
+    --tertiary-light: #f2f2f2;
+    --tertiary-dark: #111a20;
+    --accent-light: #bf8e5f;
+    --accent-dark: #b0fbbc;
+    --secondary-accent-light: #007e97;
+    --secondary-accent-dark: #7cc9ff;
+    --shadow-color-light: rgba(206, 135, 29, 0.3);
+    --shadow-color-dark: rgba(176, 251, 188, 0.8);
+    --emo-background-light: #e5e4ea;
+    --emo-background-dark: linear-gradient(to bottom, #1c2a34 0%, #111a20 100%);
+    --dark: #515151;
+    --pink: #ea4c89;
+    --danger: #ff0e0e;
+    --blue: #7cc9ff;
+
+    --_color-primary: var(--color-primary, --primary-dark);
+    --_color-secondary: var(--color-secondary, --secondary-dark);
+    --_color-tertiary: var(--color-tertiary, --tertiary-dark);
+    --_color-accent: var(--color-accent, --accent-dark);
+
+    --_color-secondary-accent: var(
+      --color-secondary-accent,
+      --secondary-accent-dark
+    );
+    --_color-shadow-color: var(--color-shadow-color, --shadowcolorlight);
+    --_color-emo-background: var(
+      --color-emo-background,
+      --emo-background-light
+    );
+  }
+
+  /* Prevent font size inflation */
+  html {
+    -moz-text-size-adjust: none;
+    -webkit-text-size-adjust: none;
+    text-size-adjust: none;
+  }
+
+  /* Remove default margin in favour of better control in authored CSS */
+  body,
+  h1,
+  h2,
+  h3,
+  h4,
+  p,
+  figure,
+  blockquote,
+  dl,
+  dd {
+    margin-block-end: 0;
+  }
+
+  /* Remove list styles on ul, ol elements with a list role, which suggests default styling will be removed */
+  ul[role="list"],
+  ol[role="list"] {
+    list-style: none;
+  }
+
+  /* Set core body defaults */
+  body,
+  html {
+    margin: 0;
+    padding: 0;
+    font-family: "Alata", sans-serif;
+    font-size: 16px;
+    min-height: 100vh;
+    line-height: 1.6;
+    color: var(--_color-secondary);
+    background-image: var(--_color-emo-background);
+    transition: all 0.3s linear;
+
+    @media (min-width: 900px) {
+      font-size: 18px;
+    }
+
+    .dark-mode {
+      --_color-emo-background: linear-gradient(
+        to bottom,
+        #1c2a34 0%,
+        #111a20 100%
+      );
+
+      --_color-primary: var(--primary-light);
+      --_color-secondary: var(--secondary-light);
+      --_color-tertiary: var(--tertiary-light);
+      --_color-accent: var(--accent-light);
+      --_color-secondary-accent: var(--secondary-accent-light);
+      --_color-shadow-color: var(--shadow-color-light);
+    }
+  }
+
+  /* Set shorter line heights on headings and interactive elements */
+  h1,
+  h2,
+  h3,
+  h4,
+  button,
+  input,
+  label {
+    line-height: 1.1;
+  }
+
+  /* Balance text wrapping on headings */
+  h1,
+  h2,
+  h3,
+  h4 {
+    text-wrap: balance;
+  }
+
+  /* A elements that don't have a class get default styles */
+  a:not([class]) {
+    text-decoration-skip-ink: auto;
+    color: #404040;
+  }
+
+  /* Make images easier to work with */
+  img,
+  picture {
+    max-width: 100%;
+    display: block;
+  }
+
+  /* Inherit fonts for inputs and buttons */
+  input,
+  button,
+  textarea,
+  select {
+    font: inherit;
+  }
+
+  /* Make sure textareas without a rows attribute are not tiny */
+  textarea:not([rows]) {
+    min-height: 10em;
+  }
+
+  /* Anything that has been anchored to should have extra scroll margin */
+  :target {
+    scroll-margin-block: 5ex;
+  }
+
+  .no-scroll {
+    position: fixed;
+    overflow-y: hidden;
+  }
+
+  .no-scrollbar {
+    scrollbar-width: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* ////// Typography ////// */
+
+  .main-heading {
+    color: var(--color-accent);
+    font-size: 2rem;
+    text-shadow: none;
+  }
+
+  .sub-heading {
+    font-size: 1.4rem;
+  }
+
+  .date {
+    grid-column: 2;
+    font-size: 0.8rem;
+    color: var(--blue);
+  }
+
+  .truncate {
+    display: -webkit-box;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-box-orient: vertical;
+  }
+
+  /* ////////////BUTTONS */
+  .btn,
+  .base-btn {
+    display: inline-block;
+    padding: 0.5em 1.2em;
+    font-size: 0.8rem;
+    font-weight: bold;
+    border: solid 0.2em var(--dark);
+    background: var(--_color-primary);
+    cursor: pointer;
+    border-radius: 8px;
+
+    :hover,
+    :focus {
+      color: var(--_color-accent);
+      background: var(--_color-primary);
+    }
+  }
+
+  /* /////GRID LAYOUT */
+  .base-grid {
+    display: grid;
+    grid-template-columns:
+      minmax(1em, 1fr) repeat(6, minmax(30px, 125px))
+      minmax(1em, 1fr);
+
+    @media (min-width: 900px) {
+      grid-template-columns:
+        minmax(10em, 1fr) repeat(12, minmax(50px, 125px))
+        minmax(10em, 1fr);
+    }
+  }
+
+  .main-layout {
+    margin: 0 auto;
+    display: grid;
+    grid-template-rows:
+      var(--headerHeight) auto
+      var(--footerHeight);
+  }
+
+  .sub-grid {
+    display: grid;
+    grid-template-columns: subgrid;
+  }
+</style>

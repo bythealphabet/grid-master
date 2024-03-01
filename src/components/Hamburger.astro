@@ -1,0 +1,75 @@
+---
+const isMenuOpen = false;
+---
+
+<button
+  x-data="{ open: false }"
+  @click="open = !open"
+  class="hamburger-btn"
+  aria-controls="primary-navigation"
+  :aria-expanded="open.toString()"
+>
+  <svg class="hamburger-svg" viewBox="0 0 80 80">
+    <rect class="line top" height="7" x="1" y="17" rx="5"></rect>
+    <rect class="line middle" height="7" x="1" y="42.5" rx="5"></rect>
+    <rect class="line bottom" height="7" x="1" y="67" rx="5"></rect>
+  </svg>
+</button>
+
+<style style="scss">
+  .hamburger-btn {
+    z-index: 20;
+    width: 3rem;
+    height: 3rem;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+
+    grid-column: -3;
+    grid-row: 1 / -1;
+    align-self: center;
+
+    justify-self: end;
+
+    .hamburger-svg {
+      fill: var(--_color-primary);
+
+      .line {
+        transform-origin: 50%;
+        transition:
+          width 200ms ease-in 500ms,
+          y 300ms ease-in 200ms,
+          rotate 200ms ease-in 0ms;
+        width: 100%;
+      }
+
+      .middle {
+        transform-origin: center;
+        scale(0, -1);
+      }
+    }
+  }
+
+  .hamburger-btn[aria-expanded="true"] {
+    .line {
+      transition:
+        width 200ms ease-in 0ms,
+        y 200ms ease-in 200ms,
+        rotate 200ms ease-in 500ms;
+    }
+
+    & .top {
+      y: 32.5;
+      rotate: 45deg;
+    }
+
+    & .bottom {
+      y: 32.5;
+      rotate: -45deg;
+    }
+
+    & .middle {
+      width: 0;
+    }
+  }
+</style>

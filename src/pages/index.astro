@@ -1,0 +1,46 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Card from "../components/Card.astro";
+---
+
+<Layout title="Welcome to Astro.">
+  <main class="main sub-grid">
+    <section class="hero sub-grid">
+      <h1 class="main-heading description">Welcome to CSS Grid</h1>
+    </section>
+  </main>
+</Layout>
+
+<style>
+  .main {
+    grid-column: 1 / -1;
+    grid-row: 1 / -1;
+  }
+
+  .hero {
+    display: grid;
+    grid-column: 1 / -1;
+    grid-template-rows: 30px 200px 100px 50px;
+    overflow: hidden;
+
+    @media (min-width: 900px) {
+      grid-template-rows: 100px 200px 200px;
+    }
+
+    .description {
+      z-index: 11;
+      margin-top: 2em;
+      grid-column: 2 / span 6;
+      grid-row: 1 / span 3;
+      margin-bottom: 1.2rem;
+      font-size: 2rem;
+
+      @media (min-width: 900px) {
+        max-width: 600px;
+        font-size: 2.5rem;
+        grid-column: 2 / span 7;
+        align-self: center;
+      }
+    }
+  }
+</style>

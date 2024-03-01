@@ -1,0 +1,18 @@
+---
+import Logo from "../components/Logo.astro";
+import Hamburger from "../components/Hamburger.astro";
+---
+
+<header class="base-grid header">
+  <Logo /><Hamburger />
+</header>
+
+<style style="scss">
+  .header {
+    display: grid;
+    grid-template-rows: repeat(2, calc(var(--headerHeight) / 2));
+    height: var(--headerHeight);
+    grid-column: 1 / -1;
+    grid-row: 1;
+  }
+</style>
