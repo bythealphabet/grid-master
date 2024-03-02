@@ -12,7 +12,7 @@ interface Props {
 const { links }: { links: ILink[] } = Astro.props;
 ---
 
-<div class:list={["menu sub-grid", { open: true, close: false }]}>
+<div class:list={["menu sub-grid"]} :class="{ open, close: !open }">
   <nav class="nav">
     <ul>
       {
@@ -33,7 +33,7 @@ const { links }: { links: ILink[] } = Astro.props;
 <style>
   .menu {
     /********* Mobile styles **********/
-    z-index: 10;
+    z-index: 20;
     position: fixed;
     overflow-y: scroll;
 
@@ -69,8 +69,12 @@ const { links }: { links: ILink[] } = Astro.props;
       z-index: 11;
       display: flex;
 
+      grid-column: 2 / -2;
+      grid-row: 2 / -3;
+
       @media (min-width: 900px) {
         background: transparent;
+        grid-row: 1 / -1;
       }
 
       ul {
@@ -82,6 +86,8 @@ const { links }: { links: ILink[] } = Astro.props;
         @media (min-width: 900px) {
           width: 100%;
           flex-direction: row;
+          justify-content: flex-end;
+
           align-items: center;
         }
 

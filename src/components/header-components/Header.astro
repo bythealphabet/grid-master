@@ -12,7 +12,11 @@ const links: ILink[] = [
 ---
 
 <!-- css={[navStyle, position]} -->
-<header class="base-grid header">
+<header
+  data-header
+  x-data="{open: window.innerWidth < 768 ? false : true}"
+  class="base-grid header header--hidden"
+>
   <Logo />
   <Hamburger />
   <Menu links={links} />
@@ -23,9 +27,20 @@ const links: ILink[] = [
     height: var(--headerHeight);
     display: grid;
     grid-template-rows: repeat(2, calc(var(--headerHeight) / 2));
+    overflow: hidden;
 
     /*******   Header Position */
     grid-column: 1 / -1;
     grid-row: 1;
+
+    &--hidden {
+      grid-template-rows: 0;
+      border: solid 1px salmon;
+      background: rgba(0, 100, 0, 0.3) !important;
+    }
+
+    @media (min-width: 768px) {
+      position: fixed;
+    }
   }
 </style>

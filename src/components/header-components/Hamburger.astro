@@ -1,13 +1,8 @@
----
-const isMenuOpen = false;
----
-
 <button
-  x-data="{ open: false }"
-  @click="open = !open"
   class="hamburger-btn"
   aria-controls="primary-navigation"
   :aria-expanded="open.toString()"
+  @click="open = !open"
 >
   <svg class="hamburger-svg" viewBox="0 0 80 80">
     <rect class="line top" height="7" x="1" y="17" rx="5"></rect>
@@ -18,7 +13,7 @@ const isMenuOpen = false;
 
 <style style="scss">
   .hamburger-btn {
-    z-index: 20;
+    z-index: 30;
     width: 3rem;
     height: 3rem;
     background-color: transparent;
@@ -30,6 +25,10 @@ const isMenuOpen = false;
     align-self: center;
 
     justify-self: end;
+
+    @media (min-width: 768px) {
+      display: none;
+    }
 
     .hamburger-svg {
       fill: var(--_color-primary);

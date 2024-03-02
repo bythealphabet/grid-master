@@ -7,7 +7,23 @@ interface Props {
 const { title } = Astro.props;
 ---
 
-<!doctype html>
+<script>
+  let lastScrollTop = 0;
+  let headerVisible = true;
+
+  window.addEventListener("scroll", () => {
+    const currentScroll = window.scrollY;
+
+    if (currentScroll > lastScrollTop && headerVisible) {
+      document.documentElement.style.setProperty("--headerHeight", "0");
+      headerVisible = false;
+    } else if (currentScroll < lastScrollTop && !headerVisible) {
+      document.documentElement.style.setProperty("--headerHeight", "100px"); // Set the original header height
+      headerVisible = true;
+    }
+  });
+</script>
+
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -18,11 +34,11 @@ const { title } = Astro.props;
 
     <title>{title}</title>
   </head>
-
-  <body class="dark-mode base-grid">
-    <Header />
-
-    <slot />
+  <body class="dark-mode">
+    <div class="base-grid main-layout">
+      <Header />
+      <slot />
+    </div>
   </body>
 </html>
 <style is:global style="scss">
@@ -262,10 +278,19 @@ const { title } = Astro.props;
     grid-template-rows:
       var(--headerHeight) auto
       var(--footerHeight);
+
+    transition: 10s linear;
   }
 
   .sub-grid {
     display: grid;
     grid-template-columns: subgrid;
+  }
+
+  .wrap {
+    border: solid 1px salmon;
+    background: rgba(0, 100, 0, 0.3) !important;
+    grid-column: 1 / -1;
+    grid-row: 1;
   }
 </style>

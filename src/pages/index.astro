@@ -1,6 +1,5 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import Card from "../components/Card.astro";
 ---
 
 <Layout title="Welcome to Astro.">
@@ -8,6 +7,20 @@ import Card from "../components/Card.astro";
     <section class="hero sub-grid">
       <h1 class="main-heading description">Welcome to CSS Grid</h1>
     </section>
+    <p>
+      Lorem ipsum dolor sit, amet consectetur adipisicing elit. Tempora quis
+      voluptates magnam rem esse veritatis, iure maxime quidem quasi illum
+      voluptas natus praesentium ratione fugit saepe enim consequatur dolorem
+      distinctio, temporibus obcaecati doloribus eveniet? Perspiciatis itaque
+      assumenda modi repudiandae! Esse officiis facere quae nobis corrupti illum
+      incidunt et. Ullam voluptatum aliquid possimus esse consequatur, totam rem
+      eveniet, inventore, autem reiciendis fuga. Minima enim optio consectetur
+      cumque recusandae quis voluptatem reprehenderit maiores ipsum dolorum
+      obcaecati ducimus praesentium debitis dolor consequatur quaerat aliquid
+      voluptates quo iusto inventore, sunt pariatur expedita voluptatibus
+      eveniet! Minus excepturi esse, totam accusantium obcaecati laboriosam
+      reprehenderit asperiores provident.
+    </p>
   </main>
 </Layout>
 
@@ -20,6 +33,7 @@ import Card from "../components/Card.astro";
   .hero {
     display: grid;
     grid-column: 1 / -1;
+    grid-row: 1 / -1;
     grid-template-rows: 30px 200px 100px 50px;
     overflow: hidden;
 
