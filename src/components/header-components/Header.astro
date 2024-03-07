@@ -11,7 +11,6 @@ const links: ILink[] = [
 ];
 ---
 
-<!-- css={[navStyle, position]} -->
 <header
   data-header
   x-data="{open: window.innerWidth < 768 ? false : true}"
@@ -40,7 +39,7 @@ const links: ILink[] = [
     }
 
     @media (min-width: 768px) {
-      position: fixed;
+      position: sticky;
     }
   }
 </style>

@@ -1,5 +1,6 @@
 ---
 import Header from "../components/header-components/Header.astro";
+import Footer from "../components/footer/Footer.astro";
 interface Props {
   title: string;
 }
@@ -8,6 +9,8 @@ const { title } = Astro.props;
 ---
 
 <script>
+  import Alpine from "alpinejs";
+  const mainLayout = document.querySelector("[data-hideHeader]");
   let lastScrollTop = 0;
   let headerVisible = true;
 
@@ -15,12 +18,15 @@ const { title } = Astro.props;
     const currentScroll = window.scrollY;
 
     if (currentScroll > lastScrollTop && headerVisible) {
-      document.documentElement.style.setProperty("--headerHeight", "0");
+      console.log("scrolling down");
       headerVisible = false;
+      mainLayout?.setAttribute("data-hideHeader", "true");
     } else if (currentScroll < lastScrollTop && !headerVisible) {
-      document.documentElement.style.setProperty("--headerHeight", "100px"); // Set the original header height
       headerVisible = true;
+      mainLayout?.setAttribute("data-hideHeader", "false");
     }
+
+    lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
   });
 </script>
 
@@ -35,9 +41,19 @@ const { title } = Astro.props;
     <title>{title}</title>
   </head>
   <body class="dark-mode">
-    <div class="base-grid main-layout">
+    <!-- <div class="main-layout base-grid">
+      <div class="header">
+        <div class="header-child"></div>
+      </div>
+      <div class="main">
+        <div class="main-content"></div>
+      </div>
+      <div class="footer"></div>
+    </div> -->
+    <div class="base-grid main-layout main-layout--hide">
       <Header />
       <slot />
+      <Footer />
     </div>
   </body>
 </html>
@@ -115,6 +131,8 @@ const { title } = Astro.props;
   ul[role="list"],
   ol[role="list"] {
     list-style: none;
+    margin: 0;
+    padding: 0;
   }
 
   /* Set core body defaults */
@@ -142,10 +160,10 @@ const { title } = Astro.props;
       );
 
       --_color-primary: var(--primary-light);
-      --_color-secondary: var(--secondary-light);
+      --_color-secondary: var(--secondary-dark);
       --_color-tertiary: var(--tertiary-light);
-      --_color-accent: var(--accent-light);
-      --_color-secondary-accent: var(--secondary-accent-light);
+      --_color-accent: var(--accent-dark);
+      --_color-secondary-accent: var(--secondary-accent-dark);
       --_color-shadow-color: var(--shadow-color-light);
     }
   }
@@ -217,7 +235,7 @@ const { title } = Astro.props;
   /* ////// Typography ////// */
 
   .main-heading {
-    color: var(--color-accent);
+    color: var(--_color-accent);
     font-size: 2rem;
     text-shadow: none;
   }
@@ -273,13 +291,11 @@ const { title } = Astro.props;
   }
 
   .main-layout {
-    margin: 0 auto;
     display: grid;
     grid-template-rows:
-      var(--headerHeight) auto
+      var(--headerHeight) minmax(calc(100vh - var(--headerHeight)), auto)
       var(--footerHeight);
-
-    transition: 10s linear;
+    transition: 500ms;
   }
 
   .sub-grid {
